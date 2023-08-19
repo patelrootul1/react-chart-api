@@ -1,27 +1,46 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from 'victory';
 import './ChartComponent.css';
 
+interface UserData {
+  id: number;
+  name: string;
+  username: string;
+  email: string;
+}
+
 const ChartComponent: React.FC = () => {
-    const data = [
-        { quarter: 1, earnings: 13000 },
-        { quarter: 2, earnings: 16500 },
-        { quarter: 3, earnings: 14250 },
-        { quarter: 4, earnings: 19000 },
-      ];
-    
-      return (
-        <div className="container">
-        <div className="chart-container">
-          <h2>Bar Chart</h2>
+  const [userData, setUserData] = useState<UserData[]>([]);
+
+  useEffect(() => {
+    // Fetch user data from JSONPlaceholder API
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then((response) => response.json())
+      .then((data: UserData[]) => {
+        // Check if data is fetched correctly
+        console.log(data); // Make sure data is not empty and has the expected structure
+        const limitedData = data.slice(0, 3);
+        setUserData(limitedData);
+      })
+      .catch((error) => console.error('Error fetching data:', error));
+  }, []);
+
+  return (
+    <div className="container">
+      <div className="chart-container">
+        {userData.length > 0 ? (
           <VictoryChart width={300} height={200} theme={VictoryTheme.material}>
-            <VictoryAxis tickFormat={['Q1', 'Q2', 'Q3', 'Q4']} />
+            <VictoryAxis tickFormat={userData.map((user) => user.name)} />
             <VictoryAxis dependentAxis />
-            <VictoryBar data={data} x="quarter" y="earnings" />
+            <VictoryBar data={userData} x="name" y="id" barWidth={20} />
           </VictoryChart>
-        </div>
-        </div>
-      );
-    };
+        ) : (
+          <p>Loading data...</p>
+        )}
+      </div>
+      {/* Other content here */}
+    </div>
+  );
+};
 
 export default ChartComponent;
