@@ -5,7 +5,7 @@ const ApiComponent: React.FC = () => {
 
   useEffect(() => {
     // Replace this with your API endpoint URL
-    const apiUrl = 'https://api.example.com/data';
+    const apiUrl = 'https://jsonplaceholder.typicode.com/users';
     
     fetch(apiUrl)
       .then(response => response.json())
