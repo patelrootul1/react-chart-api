@@ -1,5 +1,6 @@
 .container {
-    display: grid;
+    display: inline-block;
+    
     grid-template-columns: 1fr 3fr; /* Quarter-width for chart */
     gap: 20px; /* Add some spacing between chart and other content */
   }

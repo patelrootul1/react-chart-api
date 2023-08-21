@@ -1,31 +1,34 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'; // Updated import
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import ApiComponent from './ApiComponent';
 import ChartComponent from './ChartComponent';
+import './App.css'; // Import your updated App.css file
 
 const App: React.FC = () => {
   return (
     <Router>
-      <div>
+      <div className="App">
         <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
+          <ul className="navbar">
+            <li className="nav-item">
+              <Link to="/" className="nav-link">Home</Link>
             </li>
-            <li>
-              <Link to="/api">API Data</Link>
+            <li className="nav-item">
+              <Link to="/api" className="nav-link">API Data</Link>
             </li>
-            <li>
-              <Link to="/chart">Chart</Link>
+            <li className="nav-item">
+              <Link to="/chart" className="nav-link">Chart</Link>
             </li>
           </ul>
         </nav>
 
-        <Routes> {/* Updated: Use Routes component */}
-          <Route path="/api" element={<ApiComponent />} /> {/* Updated: Use the 'element' prop */}
-          <Route path="/chart" element={<ChartComponent />} /> {/* Updated: Use the 'element' prop */}
-          <Route path="/" element={<h2>Home</h2>} /> {/* Updated: Use the 'element' prop */}
-        </Routes>
+        <div className="content-container"> {/* Added div with centered content */}
+          <Routes>
+            <Route path="/api" element={<ApiComponent />} />
+            <Route path="/chart" element={<ChartComponent />} />
+            <Route path="/" element={<h2>Home</h2>} />
+          </Routes>
+        </div>
       </div>
     </Router>
   );
